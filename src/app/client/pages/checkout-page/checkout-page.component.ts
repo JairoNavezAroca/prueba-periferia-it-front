@@ -65,10 +65,15 @@ export class CheckoutPageComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.orderService.createOrder(order).subscribe({
-          next: _ => {
-            Swal.fire("", "Se ha registrado exitosamente", "success");
-            this.deleteAll();
-            this.router.navigateByUrl('/client/orders');
+          next: (response) => {
+            if (response.success) {
+              Swal.fire("", "Se ha registrado exitosamente", "success");
+              this.deleteAll();
+              this.router.navigateByUrl('/client/orders');
+            }
+            else {
+              Swal.fire("", response.message, "error");
+            }
           },
           error: (err) => {
             console.error('Error al registrar el pedido:', err);
