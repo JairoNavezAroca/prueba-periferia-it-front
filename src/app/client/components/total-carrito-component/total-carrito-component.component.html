@@ -1,0 +1,6 @@
+<div class="alert alert-info text-center mt-4" *ngIf="(totalToPay$ | async) as total">
+    <h5 class="mb-2">Resumen del carrito</h5>
+    <p class="mb-1">Productos en el carrito: <strong>{{ totalProducts$ | async }}</strong></p>
+    <p class="mb-0">Total a pagar: <strong>{{ totalToPay$ | async | currency:'PEN':'symbol':'1.2-2' }}</strong></p>
+    <a class="btn btn-success mt-3" routerLink="/client/checkout">Ir a pagar</a>
+</div>

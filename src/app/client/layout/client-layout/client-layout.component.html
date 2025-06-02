@@ -1,0 +1,27 @@
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Mi Tienda</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/client/products">Ver Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/client/checkout">Ver Carrito</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/client/orders">Ver Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/auth">Cerrar sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container my-5">
+    <router-outlet />
+</div>

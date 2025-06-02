@@ -1,0 +1,25 @@
+<h4 class="text-center mb-3">Iniciar Sesión</h4>
+<form autocomplete="off" [formGroup]="myForm" (submit)="login()">
+    <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" required formControlName="email">
+        @if ( formUtils.isValidField( myForm, 'email') ) {
+        <span class="form-text text-danger">
+            {{ formUtils.getFieldError(myForm, "email") }}
+        </span>
+        }
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" required formControlName="password">
+        @if ( formUtils.isValidField( myForm, 'password') ) {
+        <span class="form-text text-danger">
+            {{ formUtils.getFieldError(myForm, "password") }}
+        </span>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary w-100" [disabled]="!myForm.valid">Iniciar sesión</button>
+</form>
+<p class="text-center mt-3 mb-0">
+    ¿No tienes cuenta? <a routerLink="/auth/register">Regístrate</a>
+</p>

@@ -1,0 +1,53 @@
+<div class="text-center pb-2">
+    <h3>Lista de categorías</h3>
+</div>
+<div class="text-end m-2">
+    <button class="btn btn-sm btn-primary mx-2" (click)="openNewCategory()">Nuevo</button>
+</div>
+<div class="card shadow-sm bg-white">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categories()">
+                    <td>{{ category.nombre }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary mx-2" (click)="openEditCategory(category)">Editar</button>
+                        <button class="btn btn-sm btn-danger mx-2" (click)="deleteCategory(category)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button id="buttonOpenModal" type="button" class="d-none" data-bs-toggle="modal"
+    data-bs-target="#exampleModal"></button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{action()}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="saveChanges()" id="form">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input [(ngModel)]="categorySelected.nombre" name="nombre" class="form-control" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="buttonCloseModal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="form">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

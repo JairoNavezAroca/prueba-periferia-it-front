@@ -1,0 +1,84 @@
+<h2 class="mb-4 text-center">Pedidos Realizados</h2>
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th># Pedido</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders()">
+            <td>#{{ order.id }}</td>
+            <td>{{ order.usuario_nombre }}</td>
+            <td>{{ order.fecha }}</td>
+            <td>{{ order.total_pagar| currency:'PEN' }}</td>
+            <td>
+                <span *ngIf="order.estado == 1" class="badge bg-warning text-dark">En proceso</span>
+                <span *ngIf="order.estado == 2" class="badge bg-success">Entregado</span>
+                <span *ngIf="order.estado == 3" class="badge bg-danger">Anulado</span>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#detallePedidoModal"
+                    (click)="loadDetail(order)">
+                    Ver Detalle
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal Detalle del Pedido -->
+<div class="modal fade" id="detallePedidoModal" tabindex="-1" aria-labelledby="detallePedidoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detallePedidoModalLabel">Detalle del Pedido #12345</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info text-center mt-4">
+                    <p class="mb-1">Usuario: <strong>{{ orderSelected().usuario_nombre }}</strong></p>
+                    <p class="mb-1">Email: <strong>{{ orderSelected().usuario_email }}</strong></p>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Categorìa</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Total</th>
+                            <th>Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let detail of orderSelected().order_detail">
+                            <td>{{detail.categoria_nombre}}</td>
+                            <td>{{detail.producto_nombre}}</td>
+                            <td>{{detail.cantidad}}</td>
+                            <td>{{ detail.precio_total | currency:'PEN' }}</td>
+                            <td>
+                                <img [src]="detail.producto.imagen_url" alt="" style="height: 100px;">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-end">Total:</th>
+                            <th>{{ orderSelected().total_pagar | currency:'PEN' }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

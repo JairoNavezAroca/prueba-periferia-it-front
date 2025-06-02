@@ -1,0 +1,34 @@
+<h4 class="text-center mb-3">Crear Cuenta</h4>
+<form autocomplete="off" [formGroup]="myForm" (submit)="registerUser()">
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre completo</label>
+        <input type="text" class="form-control" id="name" required formControlName="name">
+        @if ( formUtils.isValidField( myForm, 'name') ) {
+        <span class="form-text text-danger">
+            {{ formUtils.getFieldError(myForm, "name") }}
+        </span>
+        }
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" id="email" required formControlName="email">
+        @if ( formUtils.isValidField( myForm, 'email') ) {
+        <span class="form-text text-danger">
+            {{ formUtils.getFieldError(myForm, "email") }}
+        </span>
+        }
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" id="password" required formControlName="password">
+        @if ( formUtils.isValidField( myForm, 'password') ) {
+        <span class="form-text text-danger">
+            {{ formUtils.getFieldError(myForm, "password") }}
+        </span>
+        }
+    </div>
+    <button type="submit" class="btn btn-success w-100" [disabled]="!myForm.valid">Registrarse</button>
+</form>
+<p class="text-center mt-3 mb-0">
+    ¿Ya tienes cuenta? <a routerLink="/auth/login">Inicia sesión</a>
+</p>

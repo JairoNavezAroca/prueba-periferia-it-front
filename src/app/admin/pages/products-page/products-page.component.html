@@ -1,0 +1,88 @@
+<div class="text-center pb-2">
+    <h3>Lista de productos</h3>
+</div>
+<div class="text-end m-2">
+    <button class="btn btn-sm btn-primary mx-2" (click)="openNewProduct()">Nuevo</button>
+</div>
+<div class="card shadow-sm bg-white">
+    <div class="card-body p-0">
+        <table class="table table-striped mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Categoría</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products()">
+                    <td>{{ product.categoria.nombre }}</td>
+                    <td>{{ product.nombre }}</td>
+                    <td>{{ product.precio | currency:'PEN' }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        <button class="btn btn-sm btn-primary mx-2" (click)="openEditCategory(product)">Editar</button>
+                        <button class="btn btn-sm btn-danger mx-2" (click)="deleteCategory(product)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<button id="buttonOpenModal" type="button" class="d-none" data-bs-toggle="modal"
+    data-bs-target="#exampleModal"></button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{action()}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="saveChanges()" id="form">
+                    <div class="mb-3">
+                        <label class="form-label">Categoría</label>
+                        <select [(ngModel)]="productSelected.categoria_id" name="categoria_id" class="form-control">
+                            <option *ngFor="let category of categories()" value="{{category.id}}">{{category.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label>
+                        <input [(ngModel)]="productSelected.nombre" name="nombre" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea class="form-control" [(ngModel)]="productSelected.descripcion"
+                            name="descripcion"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Precio</label>
+                        <input [(ngModel)]="productSelected.precio" name="precio" type="number" min="0" step="0.01"
+                            class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stock</label>
+                        <input [(ngModel)]="productSelected.stock" name="stock" type="number" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Imagen</label>
+                        <input type="file" class="form-control" (change)="onImageSelected($event)" accept="image/*" id="imageInput"/>
+                    </div>
+                    <div class="mb-3" *ngIf="imagePreview">
+                        <label class="form-label">Previsualización</label><br>
+                        <img [src]="imagePreview()" class="img-thumbnail" style="max-height: 200px;" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="buttonCloseModal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" form="form">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
