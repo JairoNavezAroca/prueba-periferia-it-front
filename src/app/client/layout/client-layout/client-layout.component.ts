@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-client-layout',
@@ -8,4 +9,12 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './client-layout.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClientLayoutComponent { }
+export class ClientLayoutComponent {
+  authService = inject(AuthService);
+  router = inject(Router);
+
+  logout() {
+    this.authService.logout();
+      this.router.navigate(['/auth']);
+  }
+}

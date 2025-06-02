@@ -9,6 +9,9 @@ import { ClientLayoutComponent } from './client/layout/client-layout/client-layo
 import { ProductsPageComponent as ProductsClientPageComponent } from './client/pages/products-page/products-page.component';
 import { CheckoutPageComponent } from './client/pages/checkout-page/checkout-page.component';
 import { OrdersPageComponent } from './client/pages/orders-page/orders-page.component';
+import { adminGuard } from './guards/admin-guard';
+import { clientGuard } from './guards/client-guard';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -18,6 +21,7 @@ export const routes: Routes = [
     },
     {
         path: 'auth',
+        canActivate: [authGuard],
         loadChildren: () => [{
             path: '',
             component: AuthLayoutComponent,
@@ -44,6 +48,7 @@ export const routes: Routes = [
     },
     {
         path: 'admin',
+        canActivate: [adminGuard],
         loadChildren: () => [{
             path: '',
             component: AdminLayoutComponent,
@@ -74,6 +79,7 @@ export const routes: Routes = [
     },
     {
         path: 'client',
+        canActivate: [clientGuard],
         loadChildren: () => [{
             path: '',
             component: ClientLayoutComponent,
